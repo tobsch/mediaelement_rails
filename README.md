@@ -3,11 +3,14 @@ This neat project brings the cool MediaElement.js html5/flash/silverlight video-
 It requires rails 3.1 engines (tested with 3.1 rc5) and makes integration pretty easy.
 
 ## All you have to do is: ##
-1. Add the gem to the list of required gems in your Gemfile
-2. Load the Mediaelement Javascript in your application.js:
+Add the gem to the list of required gems in your Gemfile
+
+### Javascript ###
+Load the Mediaelement Javascript in your application.js:
     //= require 'mediaelement_rails'
 
-3. Load the Mediaelement css in your application.css:
+### And CSS ###
+Load the Mediaelement css in your application.css:
     //= require 'mediaelement_rails'
 
 
