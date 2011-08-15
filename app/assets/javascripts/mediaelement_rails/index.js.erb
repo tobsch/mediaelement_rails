@@ -1,0 +1,8 @@
+//= require jquery
+//= require ./rails
+//= require ./mediaelement
+//= require ./mediaelementplayer
+
+mejs.MediaElementDefaults.pluginPath = ''
+mejs.MediaElementDefaults.flashName = '<%= asset_path 'mediaelement_rails/flashmediaelement.swf' %>'
+mejs.MediaElementDefaults.silverlightName = '<%= asset_path 'mediaelement_rails/silverlightmediaelement.swf' %>'

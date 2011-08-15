@@ -3,7 +3,7 @@ $:.push File.expand_path("../lib", __FILE__)
 require "mediaelement_rails/version"
 
 Gem::Specification.new do |s|
-  s.name        = "medialement_rails"
+  s.name        = "mediaelement_rails"
   s.version     = MediaelementRails::VERSION
   s.authors     = ["Tobias Schlottke"]
   s.email       = ["tobias.schlottke@gmail.com"]
@@ -11,8 +11,8 @@ Gem::Specification.new do |s|
   s.summary     = %q{MediaElement.js for rails}
   s.description = %q{a MediaElement gem(engine) for rails. Makes embedding HTML5 video easy}
 
-  s.rubyforge_project = "medialement_rails"
   s.add_development_dependency 'rails', '>=3.1.rc.5' 
+  s.add_development_dependency 'jquery-rails' 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }

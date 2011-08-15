@@ -4,4 +4,4 @@ Description:
 Example:
     rails generate mediaelement_update
 
-    This will create all assets from mediaelement
+    This will create all assets from mediaelementc
