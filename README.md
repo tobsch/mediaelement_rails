@@ -16,4 +16,8 @@ This is easy as hell too!
 Don't include any css and include the following Javascript in your application.js to get it working:
     //= require 'mediaelement_rails/rails'
 
+
+## Anything else I should know? ##
+Nothing special! This project includes all assets you might need.
+
 This project rocks and uses MIT-LICENSE.
