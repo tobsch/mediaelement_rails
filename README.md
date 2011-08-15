@@ -19,6 +19,7 @@ Load the Mediaelement css in your application.css:
 ## Wanna use MediaElement (not the player) only? ##
 This is easy as hell too! 
 Don't include any css and include the following Javascript in your application.js to get it working:
+
     //= require 'mediaelement_rails/rails'
 
 
