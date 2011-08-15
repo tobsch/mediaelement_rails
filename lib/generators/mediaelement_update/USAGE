@@ -2,7 +2,6 @@ Description:
     Explain the generator
 
 Example:
-    rails generate mediaelement_update Thing
+    rails generate mediaelement_update
 
-    This will create:
-        what/will/it/create
+    This will create all assets from mediaelement
