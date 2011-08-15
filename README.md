@@ -7,10 +7,12 @@ Add the gem to the list of required gems in your Gemfile
 
 ### Javascript ###
 Load the Mediaelement Javascript in your application.js:
+
     //= require 'mediaelement_rails'
 
 ### And CSS ###
 Load the Mediaelement css in your application.css:
+
     //= require 'mediaelement_rails'
 
 
