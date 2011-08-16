@@ -28,24 +28,19 @@ class MediaelementUpdateGenerator < Rails::Generators::NamedBase
         copy_file old_name, new_name
       end
     end
-    
-    # replace image paths in css
-    Dir[ File.join(Rails.root, 'app', 'assets', '*', 'mediaelement_rails', '*.css.erb') ].each do |file|
-      File.open(file, "r+") do |fp|
-        new_content = fp.read.gsub(/([^(]+\.(png|gif))/m, "<%= asset_path('mediaelement_rails/\\1') %>")
-        fp.rewind  
-        fp.write(new_content)
+
+    asset_base_path = File.join(Rails.root, 'app', 'assets', '*', 'mediaelement_rails')
+    {
+      '*.css.erb' => Proc.new{ |fp| fp.read.gsub(/([^(]+\.(png|gif))/m, "<%= asset_path('mediaelement_rails/\\1') %>") },
+      '*.js'  => Proc.new{ |fp| fp.read.gsub(/﻿/, '') }
+    }.each do |matcher, proc|
+      Dir[ File.join(asset_base_path, matcher) ].each do |file|
+        File.open(file, "r+") do |fp|
+          new_content = proc.call(fp)
+          fp.rewind
+          fp.write(new_content)
+        end
       end
     end
-
-		Dir[ File.join(Rails.root, 'app', 'assets', '*', 'mediaelement_rails', '*.js') ].each do |file|
-			p file
-			File.open(file, "r+") do |fp|
-				new_content = fp.read.gsub(/﻿/, '')
-				fp.rewind
-				fp.write(new_content)
-			end
-		end
-
   end
 end
