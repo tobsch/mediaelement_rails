@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    medialement_rails (0.2)
+    mediaelement_rails (0.2)
 
 GEM
   remote: http://rubygems.org/
@@ -41,6 +41,9 @@ GEM
     erubis (2.7.0)
     hike (1.2.0)
     i18n (0.6.0)
+    jquery-rails (1.0.13)
+      railties (~> 3.0)
+      thor (~> 0.14)
     mail (2.3.0)
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
@@ -89,5 +92,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  medialement_rails!
+  jquery-rails
+  mediaelement_rails!
   rails (>= 3.1.rc.5)
