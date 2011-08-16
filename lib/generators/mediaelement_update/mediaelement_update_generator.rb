@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 class MediaelementUpdateGenerator < Rails::Generators::NamedBase
   source_root File.expand_path('../templates', __FILE__)
 
@@ -35,5 +37,15 @@ class MediaelementUpdateGenerator < Rails::Generators::NamedBase
         fp.write(new_content)
       end
     end
+
+		Dir[ File.join(Rails.root, 'app', 'assets', '*', 'mediaelement_rails', '*.js') ].each do |file|
+			p file
+			File.open(file, "r+") do |fp|
+				new_content = fp.read.gsub(/﻿/, '')
+				fp.rewind
+				fp.write(new_content)
+			end
+		end
+
   end
 end
