@@ -18,6 +18,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency "bundler",  "~> 1.0.0"
   s.add_development_dependency "rails",    ">= 3.1.0.rc6"
   s.add_development_dependency "capybara", "~> 1.0.1"
+  s.add_development_dependency "turn",     "~> 0.8.2"
   
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
