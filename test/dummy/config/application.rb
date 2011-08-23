@@ -6,6 +6,7 @@ require 'rails/test_unit/railtie'
 require 'sprockets/railtie'
 
 Bundler.require
+require "jquery-rails"
 require "mediaelement_rails"
 
 module Dummy
