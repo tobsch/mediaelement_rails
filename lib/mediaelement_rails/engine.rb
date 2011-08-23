@@ -1,5 +1,7 @@
+require "rails/engine"
+require "jquery-rails"
+
 module MediaelementRails
   class Engine < Rails::Engine
-    isolate_namespace MediaelementRails
   end
 end

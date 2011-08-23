@@ -5,9 +5,7 @@ require 'action_controller/railtie'
 require 'rails/test_unit/railtie'
 require 'sprockets/railtie'
 
-Bundler.require
-require "jquery-rails"
-require "mediaelement_rails"
+Bundler.require :default, :development
 
 module Dummy
   class Application < Rails::Application
