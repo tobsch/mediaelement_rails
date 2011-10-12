@@ -5,5 +5,4 @@ log/*.log
 test/dummy/db/*.sqlite3
 test/dummy/log/*.log
 test/dummy/tmp/
-lib/generators/mediaelement_update/templates/mediaelement
-/nbproject/private/
+vendor/mediaelement
