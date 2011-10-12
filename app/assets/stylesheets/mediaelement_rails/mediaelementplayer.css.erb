@@ -4,6 +4,15 @@
 	font-family: Helvetica, Arial;
 }
 
+.mejs-embed, .mejs-embed body {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	background: #000;
+	overflow: hidden;
+}
+
 .mejs-container-fullscreen {
 	position: fixed;
 	left: 0;
@@ -11,6 +20,7 @@
 	right: 0;
 	bottom: 0;
 	overflow: hidden;
+	z-index: 1000;
 }
 .mejs-container-fullscreen .mejs-mediaelement,
 .mejs-container-fullscreen video {
@@ -51,7 +61,7 @@
 	width: 100px;
 	height: 100px;
 	margin: -50px 0 0 -50px;
-	background: url(<%= asset_path('mediaelement_rails/bigplay.png') %>) top left no-repeat;
+	background: url(<%= asset_path "mediaelement_rails/bigplay.png" %>) top left no-repeat;
 }
 .mejs-overlay:hover .mejs-overlay-button{
 	background-position: 0 -100px ;
@@ -64,7 +74,7 @@
 	height: 80px;
 	margin: -40px 0 0 -40px;
 	background: #333;
-	background: url(<%= asset_path('mediaelement_rails/background.png') %>);
+	background: url(<%= asset_path "mediaelement_rails/background.png" %>);
 	background: rgba(0, 0, 0, 0.9);
 	background: -webkit-gradient(linear, left top, left bottom, from(rgba(50,50,50,0.9)), to(rgba(0,0,0,0.9))); 
 	background: -moz-linear-gradient(top,  rgba(50,50,50,0.9),  rgba(0,0,0,0.9)); 	
@@ -74,7 +84,7 @@
 	display:block;
 	width: 80px;
 	height: 80px;
-	background: transparent url(<%= asset_path('mediaelement_rails/loading.gif') %>) center center no-repeat;
+	background: transparent url(<%= asset_path "mediaelement_rails/loading.gif" %>) center center no-repeat;
 }
 
 /* End: LAYERS */
@@ -88,7 +98,7 @@
 	padding: 0;
 	bottom: 0;
 	left: 0;
-	background: url(<%= asset_path('mediaelement_rails/background.png') %>);
+	background: url(<%= asset_path "mediaelement_rails/background.png" %>);
 	background: rgba(0, 0, 0, 0.7);
 	background: -webkit-gradient(linear, left top, left bottom, from(rgba(50,50,50,0.7)), to(rgba(0,0,0,0.7))); 
 	background: -moz-linear-gradient(top,  rgba(50,50,50,0.7),  rgba(0,0,0,0.7)); 	
@@ -124,8 +134,14 @@
 	height: 16px;
 	width: 16px;
 	border: 0;
-	background: transparent url(<%= asset_path('mediaelement_rails/controls.png') %>) 0 0 no-repeat;
+	background: transparent url(<%= asset_path "mediaelement_rails/controls.png" %>) 0 0 no-repeat;
 }
+
+/* :focus for accessibility */
+.mejs-controls .mejs-button button:focus {
+	outline: solid 1px yellow;
+}
+
 /* End: CONTROL BAR */
 
 /* Start: Time (current / duration) */
@@ -303,7 +319,7 @@
 	display: none;
 	height: 115px;
 	width: 25px;
-	background: url(<%= asset_path('mediaelement_rails/background.png') %>);
+	background: url(<%= asset_path "mediaelement_rails/background.png" %>);
 	background: rgba(50, 50, 50, 0.7);
 	-webkit-border-radius: 0;
 	-moz-border-radius: 0;
@@ -319,9 +335,11 @@
 	-moz-border-radius: 0 0 4px 4px ;
 	border-radius: 0 0 4px 4px ;
 }
+/*
 .mejs-controls .mejs-volume-button:hover .mejs-volume-slider {
 	display: block;
 }
+*/
 
 .mejs-controls .mejs-volume-button .mejs-volume-slider .mejs-volume-total {
 	position: absolute;
@@ -380,7 +398,7 @@
 	right: -10px;
 	width: 130px;
 	height: 100px;
-	background: url(<%= asset_path('mediaelement_rails/background.png') %>);
+	background: url(<%= asset_path "mediaelement_rails/background.png" %>);
 	background: rgba(50,50,50,0.7);
 	border: solid 1px transparent;
 	padding: 10px;
@@ -389,9 +407,11 @@
 	-moz-border-radius: 0;
 	border-radius: 0;
 }
+/*
 .mejs-controls .mejs-captions-button:hover  .mejs-captions-selector {
 	visibility: visible;
 }
+*/
 
 .mejs-controls .mejs-captions-button .mejs-captions-selector ul {
 	margin: 0;
@@ -519,7 +539,7 @@
 
 .mejs-captions-text {
 	padding: 3px 5px;
-	background: url(<%= asset_path('mediaelement_rails/background.png') %>);
+	background: url(<%= asset_path "mediaelement_rails/background.png" %>);
 	background: rgba(20, 20, 20, 0.8);
 
 }
@@ -569,3 +589,35 @@
 	background-position: -96px 0;
 }
 /* End: picture controls */
+
+
+/* context menu */
+.mejs-contextmenu {
+	position: absolute;
+	width: 150px;
+	padding: 10px;
+	border-radius: 4px;
+	top: 0;
+	left: 0;
+	background: #fff;
+	border: solid 1px #999;
+	z-index: 1001; /* make sure it shows on fullscreen */
+}
+.mejs-contextmenu .mejs-contextmenu-separator {
+	height: 1px;
+	font-size: 0;
+	margin: 5px 6px;
+	background: #333;	
+}
+
+.mejs-contextmenu .mejs-contextmenu-item {
+	font-family: Helvetica, Arial;
+	font-size: 12px;
+	padding: 4px 6px;
+	cursor: pointer;
+	color: #333;	
+}
+.mejs-contextmenu .mejs-contextmenu-item:hover {
+	background: #2C7C91;
+	color: #fff;
+}

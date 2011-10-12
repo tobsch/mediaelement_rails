@@ -1,9 +1,6 @@
 require File.expand_path('../boot', __FILE__)
 
-require 'active_support/railtie'
-require 'action_controller/railtie'
-require 'rails/test_unit/railtie'
-require 'sprockets/railtie'
+require "rails/all"
 
 Bundler.require
 require "mediaelement_rails"
