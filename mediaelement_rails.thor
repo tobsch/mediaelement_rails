@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 module MediaelementRails
   class Updater < Thor
     include Thor::Actions
@@ -10,6 +12,11 @@ module MediaelementRails
       "mejs-skins.css"         => "stylesheets",
       "*.{png,gif}"            => "images",
       "*.{swf,xap}"            => "plugins"
+    }
+    
+    TRANSFORMATIONS = {
+      "**/*.css.erb" => :add_asset_path_helper,
+      "**/*.js"      => :remove_weird_characters
     }
     
     def self.source_root
@@ -51,12 +58,26 @@ module MediaelementRails
         end
       end
       
-      # Use the #asset_path helper in the CSS files
-      Dir[File.join(assets_path, "**/*.css.erb")].each do |file|
-        content = File.binread(file)
-        content.gsub! /url\((.*?)\)/, 'url(<%= asset_path "mediaelement_rails/\1" %>)'
-        File.open(file, "wb") { |file| file.write(content) }
+      # Peform any transformations necessary to the files
+      TRANSFORMATIONS.each do |matcher, transformation|
+        Dir[File.join(assets_path, matcher)].each do |file|
+          content = File.binread file
+          content = send(transformation, content)
+          File.open(file, "wb") { |file| file.write(content) }
+        end
       end
+    end
+    
+    protected
+    
+    # Replaces `url(...)` with url(<%= asset_path "..." %>) in CSS files.
+    def add_asset_path_helper(content)
+      content.gsub /url\((.*?)\)/, 'url(<%= asset_path "mediaelement_rails/\1" %>)'
+    end
+    
+    # Removes the weird unicode character from the MediaElement source files.
+    def remove_weird_characters(content)
+      content.gsub /﻿/, ''
     end
   end
 end
