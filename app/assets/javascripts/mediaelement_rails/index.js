@@ -1,3 +1,3 @@
 //= require jquery
 //= require ./rails
-//= require ./mediaelementplayer
+//= require ./mediaelement-and-player.min
