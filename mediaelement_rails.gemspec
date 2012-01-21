@@ -11,10 +11,10 @@ Gem::Specification.new do |s|
   s.summary     = %q{MediaElement.js for Rails}
   s.description = %q{A MediaElement gem(engine) for Rails. Makes embedding HTML5 video easy.}
   
-  s.add_dependency "railties",     "~> 3.1"
-  s.add_dependency "jquery-rails", "~> 1.0"
+  s.add_dependency "railties",     ">= 3.1"
+  s.add_dependency "jquery-rails", ">= 1.0"
   
-  s.add_development_dependency "rails", "~> 3.1"
+  s.add_development_dependency "rails", ">= 3.1"
   s.add_development_dependency "i18n"
   s.add_development_dependency "turn"
   s.add_development_dependency "sqlite3"
