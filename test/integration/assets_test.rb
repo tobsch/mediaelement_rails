@@ -40,17 +40,19 @@ class AssetsTest < ActionDispatch::IntegrationTest
   
   {
     "background.png"      => "image/png",
+    "bigplay.svg"         => "image/svg+xml",
     "bigplay.png"         => "image/png",
     "controls-ted.png"    => "image/png",
     "controls-wmp-bg.png" => "image/png",
     "controls-wmp.png"    => "image/png",
     "controls.png"        => "image/png",
+    "controls.svg"        => "image/svg+xml",
     "loading.gif"         => "image/gif"
   }.each do |image, type|
-    test "includes #{image[0..-5]} image" do
+    test "includes #{image} image" do
       get "/assets/mediaelement_rails/#{image}"
       assert_response :success
-      assert content_type(type)
+      assert content_type(type), "type = #{type} but @response.content_type = #{@response.content_type}"
     end
   end
 
