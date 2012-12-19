@@ -10,7 +10,7 @@ module MediaelementRails
       "mediaelementplayer.js"  => "javascripts",
       "mediaelementplayer.css" => "stylesheets",
       "mejs-skins.css"         => "stylesheets",
-      "*.{png,gif}"            => "images",
+      "*.{png,gif,svg}"            => "images",
       "*.{swf,xap}"            => "plugins"
     }
     
