@@ -10,7 +10,7 @@ module MediaelementRails
       "mediaelementplayer.js"  => "javascripts",
       "mediaelementplayer.css" => "stylesheets",
       "mejs-skins.css"         => "stylesheets",
-      "*.{png,gif}"            => "images",
+      "*.{svg,png,gif}"        => "images",
       "*.{swf,xap}"            => "plugins"
     }
     
@@ -77,7 +77,7 @@ module MediaelementRails
     
     # Removes the weird unicode character from the MediaElement source files.
     def remove_weird_characters(content)
-      content.gsub /﻿/, ''
+      content.force_encoding('utf-8').gsub /﻿/, ''
     end
   end
 end
