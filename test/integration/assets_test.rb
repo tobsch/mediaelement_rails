@@ -1,11 +1,11 @@
 require "test_helper"
 
 class AssetsTest < ActionDispatch::IntegrationTest
+
   test "includes full library" do
     get "/assets/mediaelement-and-player.js"
     assert_response :success
     assert content_type("text/javascript")
-    assert response_includes?("var jQuery = function( selector, context ) {")
     assert response_includes?("var mejs = mejs || {}")
     assert response_includes?("mejs.MediaElementPlayer.prototype = {")
   end
@@ -14,7 +14,6 @@ class AssetsTest < ActionDispatch::IntegrationTest
     get "/assets/mediaelement-without-player.js"
     assert_response :success
     assert content_type("text/javascript")
-    assert !response_includes?("var jQuery = function( selector, context ) {")
     assert response_includes?("var mejs = mejs || {}")
     assert !response_includes?("mejs.MediaElementPlayer.prototype = {")
   end
