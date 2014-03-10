@@ -47,8 +47,8 @@ module MediaelementRails
       # Update the vendored MediaElement.js
       run "git clone #{options[:git]} #{vendor_path}",    :capture => true unless File.directory? vendor_path
       run "cd #{vendor_path} && git pull origin master",  :capture => true
-      run "cd #{vendor_path} && git co #{options[:tag]}", :capture => true
-      
+      run "cd #{vendor_path} && git checkout #{options[:tag]}", :capture => true
+
       # Then copy the files we need to their correct locations
       UPDATE_FILES.each do |matcher, path|
         Dir[File.join(vendor_path, "build", matcher)].each do |file|
