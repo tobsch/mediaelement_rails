@@ -1,6 +1,6 @@
 #  MediaelementRails #
 
-This neat project brings the cool [MediaElement.js](http://mediaelementjs.com/) 2.13.1 (HTML5/Flash/Silverlight video player) to the Rails asset pipeline. __*NOTE:*__ This gem requires jquery, which shouldn't be an issue.
+This neat project brings the cool [MediaElement.js](http://mediaelementjs.com/) 2.13.2 (HTML5/Flash/Silverlight video player) to the Rails asset pipeline. __*NOTE:*__ This gem requires jquery to be included, which shouldn't be an issue.
 
 ## All you have to do is: ##
 
@@ -44,5 +44,9 @@ Don't include any CSS and include the following in your `application.js` to get 
 ## Anything else I should know? ##
 
 Nothing special! This project includes all assets you might need.
+
+## Todo ##
+
+- Add support for `flashmediaelement-cdn.swf` for cases when the assets are hosted on a different domain than the rails application.
 
 This project rocks and uses MIT-LICENSE.
