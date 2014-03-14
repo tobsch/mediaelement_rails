@@ -34,7 +34,7 @@ Load the Mediaelement CSS in your `application.css`:
 
 ## Wanna use MediaElement (not the player) only? ##
 
-This is easy as hell too! 
+This is easy as hell too!
 Don't include any CSS and include the following in your `application.js` to get it working:
 
 ``` javascript
@@ -48,5 +48,6 @@ Nothing special! This project includes all assets you might need.
 ## Todo ##
 
 - Add support for `flashmediaelement-cdn.swf` for cases when the assets are hosted on a different domain than the rails application.
+- Setup [appraisal](https://github.com/thoughtbot/appraisal) gem to test against rails 3.x and 4.x
 
 This project rocks and uses MIT-LICENSE.
