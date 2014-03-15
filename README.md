@@ -50,4 +50,12 @@ Nothing special! This project includes all assets you might need.
 - Add support for `flashmediaelement-cdn.swf` for cases when the assets are hosted on a different domain than the rails application.
 - Setup [appraisal](https://github.com/thoughtbot/appraisal) gem to test against rails 3.x and 4.x
 
+## Maintainers ##
+
+- [Mark Oleson](https://github.com/fusion2004) - current
+- [Tobias Schlottke](https://github.com/tobsch)
+- [Pete Browne](https://github.com/petebrowne)
+
+## License ##
+
 This project rocks and uses MIT-LICENSE.
