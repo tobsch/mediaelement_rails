@@ -1,5 +1,9 @@
 ## Changelog
 
+### v0.8
+
+- Updated MediaElement.js to 2.14.2
+
 ### v0.7.0
 
 - Updated MediaElement.js to 2.13.2
