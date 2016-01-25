@@ -16,7 +16,7 @@
 var mejs = mejs || {};
 
 // version number
-mejs.version = '2.18.0'; 
+mejs.version = '2.19.0'; 
 
 
 // player number (for missing, same id attr)
@@ -180,6 +180,18 @@ mejs.Utility = {
 	secondsToTimeCode: function(time, options) {
 		if (time < 0) {
 			time = 0;
+		}
+
+		// Maintain backward compatibility with method signature before v2.18.
+		if (typeof options !== 'object') {
+			var format = 'm:ss';
+			format = arguments[1] ? 'hh:mm:ss' : format; // forceHours
+			format = arguments[2] ? format + ':ff' : format; // showFrameCount
+
+			options = {
+				currentTimeFormat: format,
+				framesPerSecond: arguments[3] || 25
+			};
 		}
 
 		var fps = options.framesPerSecond;
@@ -413,16 +425,17 @@ mejs.MediaFeatures = {
 		t.isGecko = (ua.match(/gecko/gi) !== null) && !t.isWebkit && !t.isIE;
 		t.isOpera = (ua.match(/opera/gi) !== null);
 		t.hasTouch = ('ontouchstart' in window); //  && window.ontouchstart != null); // this breaks iOS 7
-		
-		// borrowed from Modernizr
-		t.svg = !! document.createElementNS &&
-				!! document.createElementNS('http://www.w3.org/2000/svg','svg').createSVGRect;
+
+		// Borrowed from `Modernizr.svgasimg`, sources:
+		// - https://github.com/Modernizr/Modernizr/issues/687
+		// - https://github.com/Modernizr/Modernizr/pull/1209/files
+		t.svgAsImg = !!document.implementation.hasFeature('http://www.w3.org/TR/SVG11/feature#Image', '1.1');
 
 		// create HTML5 media elements for IE before 9, get a <video> element for fullscreen detection
 		for (i=0; i<html5Elements.length; i++) {
 			v = document.createElement(html5Elements[i]);
 		}
-		
+
 		t.supportsMediaTag = (typeof v.canPlayType !== 'undefined' || t.isBustedAndroid);
 
 		// Fix for IE9 on Windows 7N / Windows 7KN (Media Player not installer)
@@ -433,62 +446,62 @@ mejs.MediaFeatures = {
 		}
 
 		// detect native JavaScript fullscreen (Safari/Firefox only, Chrome still fails)
-		
+
 		// iOS
 		t.hasSemiNativeFullScreen = (typeof v.webkitEnterFullscreen !== 'undefined');
-		
+
 		// W3C
 		t.hasNativeFullscreen = (typeof v.requestFullscreen !== 'undefined');
-		
+
 		// webkit/firefox/IE11+
 		t.hasWebkitNativeFullScreen = (typeof v.webkitRequestFullScreen !== 'undefined');
 		t.hasMozNativeFullScreen = (typeof v.mozRequestFullScreen !== 'undefined');
 		t.hasMsNativeFullScreen = (typeof v.msRequestFullscreen !== 'undefined');
-		
+
 		t.hasTrueNativeFullScreen = (t.hasWebkitNativeFullScreen || t.hasMozNativeFullScreen || t.hasMsNativeFullScreen);
 		t.nativeFullScreenEnabled = t.hasTrueNativeFullScreen;
-		
+
 		// Enabled?
 		if (t.hasMozNativeFullScreen) {
 			t.nativeFullScreenEnabled = document.mozFullScreenEnabled;
 		} else if (t.hasMsNativeFullScreen) {
-			t.nativeFullScreenEnabled = document.msFullscreenEnabled;		
+			t.nativeFullScreenEnabled = document.msFullscreenEnabled;
 		}
-		
+
 		if (t.isChrome) {
 			t.hasSemiNativeFullScreen = false;
 		}
-		
+
 		if (t.hasTrueNativeFullScreen) {
-			
+
 			t.fullScreenEventName = '';
-			if (t.hasWebkitNativeFullScreen) { 
+			if (t.hasWebkitNativeFullScreen) {
 				t.fullScreenEventName = 'webkitfullscreenchange';
-				
+
 			} else if (t.hasMozNativeFullScreen) {
 				t.fullScreenEventName = 'mozfullscreenchange';
-				
+
 			} else if (t.hasMsNativeFullScreen) {
 				t.fullScreenEventName = 'MSFullscreenChange';
 			}
-			
+
 			t.isFullScreen = function() {
 				if (t.hasMozNativeFullScreen) {
 					return d.mozFullScreen;
-				
+
 				} else if (t.hasWebkitNativeFullScreen) {
 					return d.webkitIsFullScreen;
-				
+
 				} else if (t.hasMsNativeFullScreen) {
 					return d.msFullscreenElement !== null;
 				}
 			}
-					
+
 			t.requestFullScreen = function(el) {
-		
+
 				if (t.hasWebkitNativeFullScreen) {
 					el.webkitRequestFullScreen();
-					
+
 				} else if (t.hasMozNativeFullScreen) {
 					el.mozRequestFullScreen();
 
@@ -497,29 +510,29 @@ mejs.MediaFeatures = {
 
 				}
 			}
-			
-			t.cancelFullScreen = function() {				
+
+			t.cancelFullScreen = function() {
 				if (t.hasWebkitNativeFullScreen) {
 					document.webkitCancelFullScreen();
-					
+
 				} else if (t.hasMozNativeFullScreen) {
 					document.mozCancelFullScreen();
-					
+
 				} else if (t.hasMsNativeFullScreen) {
 					document.msExitFullscreen();
-					
+
 				}
-			}	
-			
+			}
+
 		}
-		
-		
+
+
 		// OS X 10.5 can't do this even if it says it can :(
 		if (t.hasSemiNativeFullScreen && ua.match(/mac os x 10_5/i)) {
 			t.hasNativeFullScreen = false;
 			t.hasSemiNativeFullScreen = false;
 		}
-		
+
 	}
 };
 mejs.MediaFeatures.init();
@@ -822,7 +835,7 @@ mejs.PluginMediaElement.prototype = {
 
 		if (callbacks) {
 			for (i = 0; i < callbacks.length; i++) {
-				callbacks[i].apply(this, event);
+				callbacks[i].apply(this, [event]);
 			}
 		}
 	},
@@ -1001,7 +1014,7 @@ mejs.HtmlMediaElementShim = {
 
 	create: function(el, o) {
 		var
-			options = mejs.MediaElementDefaults,
+			options = {},
 			htmlMediaElement = (typeof(el) == 'string') ? document.getElementById(el) : el,
 			tagName = htmlMediaElement.tagName.toLowerCase(),
 			isMediaTag = (tagName === 'audio' || tagName === 'video'),
@@ -1014,9 +1027,13 @@ mejs.HtmlMediaElementShim = {
 			prop;
 
 		// extend options
+		for (prop in mejs.MediaElementDefaults) {
+			options[prop] = mejs.MediaElementDefaults[prop];
+		}
 		for (prop in o) {
 			options[prop] = o[prop];
-		}
+		}		
+		
 
 		// clean up attributes
 		src = 		(typeof src == 'undefined' 	|| src === null || src == '') ? null : src;		
